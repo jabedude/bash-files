@@ -1,10 +1,13 @@
-# by default, the indent is 2 spaces. 
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=8
+set softtabstop=8
+set tabstop=8
 
-# for c files, 8 spaces
 autocmd Filetype c setlocal ts=8 sw=8 expandtab
+au FileType python setl sw=4 sts=4 et
 
 set expandtab
 set number
+
+syntax on
+set scrolloff=5
+set autoindent
