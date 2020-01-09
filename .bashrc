@@ -1,56 +1,35 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+alias ls="ls --color=auto"
+alias ll="ls -latr"
+alias l="ls"
+alias p="pwd"
+alias cd..="cd .."
+alias cd...="cd ../.."
+alias psg="ps aux | grep"
+alias nsg="netstat -antp | grep"
+alias holdnet="watch -n3 netstat -natpu"
+alias vscode="code --user-data-dir='/root/.vscode-root'"
+alias wanip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias sp="sudo pacman "
+alias epictreasure="docker run --rm -v /home/josh:/root/host-share --privileged -it --workdir=/root ctfhacker/epictreasure"
 
-. /etc/apache2/envvars
-
-# If not running interactively, don't do anything else
-[ -z "$PS1" ] && return
-
-# don't put duplicate lines or lines starting with space in the history.
-# See bash(1) for more options
-HISTCONTROL=ignoreboth
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+if [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
 fi
 
-# enable programmable completion features (you don't need to enable
-# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
-# sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
+#export PS1=" \[\e[00;32m\]λ \W\[\e[-1m\] → "
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
-PS1='\[\033[01;32m\]${C9_USER}\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 " (%s)") $ '
+#if [ -f /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh ]; then
+#        source /usr/lib/python3.6/site-packages/powerline/bindings/bash/powerline.sh
+#fi
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+export PS1="\[\e[00;32m\] λ \W\[\e[0m\]\$(parse_git_branch) → "
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
+export PATH="/usr/local/bin/aarch64-none-elf/bin:$PATH"
+export EDITOR="vim"
 
-export rvm_silence_path_mismatch_check_flag=1
-
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash

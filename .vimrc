@@ -3,13 +3,13 @@ set softtabstop=8
 set tabstop=8
 
 
+highlight Folded ctermbg=DarkGray ctermfg=Green
 autocmd Filetype c setlocal foldmethod=syntax ts=4 sw=4 sts=4 expandtab
 autocmd Filetype asm setlocal foldmethod=syntax ts=4 sw=4 sts=4 expandtab
 autocmd Filetype cpp setlocal foldmethod=syntax ts=4 sw=4 sts=4 expandtab
 au FileType python setl foldmethod=index sw=4 sts=4 et
 au FileType rust setl foldmethod=syntax sw=4 sts=4 et
 autocmd FileType make set noexpandtab
-highlight Folded ctermbg=DarkGray ctermfg=Green
 
 augroup AutoSaveFolds
         autocmd!
@@ -28,3 +28,7 @@ set scrolloff=5
 set autoindent
 
 set laststatus=2
+
+set clipboard=unnamedplus
+set wildmode=longest,list,full
+set wildmenu
